@@ -6,6 +6,8 @@ import cors from 'cors';
 
 import postRoutes from './routes/posts.js';
 
+require("dotenv").config({ path: ".env" });
+
 const app = express();
 
 app.use(bodyParser.json({ limit: '30mb', extended: true }))
@@ -14,7 +16,9 @@ app.use(cors());
 
 app.use('/posts', postRoutes);
 
-const CONNECTION_URL = '';
+const DB_PASSWORD = process.env.DB_PASSWORD;
+
+const CONNECTION_URL = 'mongodb+srv://tolu_kaizen:'+DB_PASSWORD+'@kaizen.wu4vg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 const PORT = process.env.PORT|| 5000;
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
